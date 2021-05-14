@@ -1,0 +1,61 @@
+<div id="games-list">
+  <app-back-link></app-back-link>
+
+  <div *ngIf="gamesData && !error && !loadingState">
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Games</h1>
+          <p class="lead text-muted">Below is a list of games that are currently available to browse</p>
+        </div>
+      </div>
+
+      <form>
+        <div class="form-group d-inline-block">
+          <input type="text" class="form-control" name="gameTitle" id="gameTitleFilter" aria-describedby="gameTitleHelp"
+                 [(ngModel)]="filterModel.name"
+                 placeholder="Enter game title" (input)="filter()">
+        </div>
+        <div class="form-check form-check-inline first-checkbox-spacing">
+          <input class="form-check-input" type="checkbox" id="ps4-checkbox" value="ps4" name="ps4"
+                 [(ngModel)]="filterModel.consoles.ps4" (ngModelChange)="filter()">
+          <label class="form-check-label" for="ps4-checkbox">PS4</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="nintendo-checkbox" value="nintendo" name="nintendo"
+                 [(ngModel)]="filterModel.consoles.nintendo" (ngModelChange)="filter()">
+          <label class="form-check-label" for="nintendo-checkbox">Nintendo Switch</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="pc-checkbox" value="pc" name="pc"
+                 [(ngModel)]="filterModel.consoles.pc" (ngModelChange)="filter()">
+          <label class="form-check-label" for="pc-checkbox">PC</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" name="xbox" type="checkbox" id="xbox-checkbox" value="xbox"
+                 [(ngModel)]="filterModel.consoles.xbox" (ngModelChange)="filter()">
+          <label class="form-check-label" for="xbox-checkbox">XBOX One</label>
+        </div>
+      </form>
+    </section>
+
+    <div class="row mt-5">
+      <div *ngFor="let game of filteredData" class="col-md-4 col-sm-6 col-12">
+        <app-games-item [GameItem]="game"></app-games-item>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loadingState">
+    <app-loading-state></app-loading-state>
+  </div>
+
+  <div *ngIf="!loadingState && error">
+    <app-error-state [message]="error"></app-error-state>
+  </div>
+
+
+</div>
+
+

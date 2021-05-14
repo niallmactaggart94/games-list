@@ -1,0 +1,13 @@
+version: '3'
+services:
+  games-backend:
+    build: ./games-backend
+    container_name: games-backend
+    ports:
+      - 2020:2020
+
+  games-ui:
+    build: ./games-ui
+    container_name: games-ui
+    ports:
+      - 4200:80

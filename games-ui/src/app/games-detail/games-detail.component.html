@@ -1,0 +1,66 @@
+<app-back-link></app-back-link>
+<div id="games-detail" *ngIf="game && !loadingState && !error">
+
+  <div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">{{game.title}}</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">{{game.description}}</p>
+    </div>
+  </div>
+
+  <div class="container py-5" id="icon-grid">
+    <h2 class="pb-2 border-bottom">Game details</h2>
+
+    <div class="row row-cols-4 g-4 py-5">
+
+      <div class="col d-flex align-items-start">
+        <i class="fa fa-gamepad featured-icon"></i>
+        <div>
+          <h4 class="fw-bold mb-0">Platform</h4>
+          <p>{{game.platform}}</p>
+        </div>
+      </div>
+
+      <div class="col d-flex align-items-start">
+        <i class="fa fa-clock featured-icon"></i>
+        <div>
+          <h4 class="fw-bold mb-0">Released</h4>
+          <p>{{game.released}}</p>
+        </div>
+      </div>
+
+      <div class="col d-flex align-items-start">
+        <i class="fa fa-pound-sign featured-icon"></i>
+        <div>
+          <h4 class="fw-bold mb-0">Price</h4>
+          <p>{{game.price | currency:'GBP':true:'1.2-2'}}</p>
+        </div>
+      </div>
+
+      <div class="col d-flex align-items-start">
+        <i class="fa fa-list featured-icon"></i>
+        <div>
+          <h4 class="fw-bold mb-0">Category(s)</h4>
+          <div *ngFor="let category of game.category">{{category}}</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="!game && !loadingState && !error" class="mt-5 container">
+  <app-error-state [message]="'Game not found with specified ID'"></app-error-state>
+
+
+</div>
+
+<div *ngIf="loadingState" class="mt-5">
+  <app-loading-state></app-loading-state>
+</div>
+
+<div *ngIf="!loadingState && error">
+  <app-error-state [message]="error"></app-error-state>
+</div>
+
